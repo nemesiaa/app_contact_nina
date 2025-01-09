@@ -1,17 +1,17 @@
 <script setup>
-import ContactsListItem from "@/components/contacts/ContactsListItem.vue";
-
-const props = defineProps({
-  contacts: {
-    type: Array,
-    required: true,
-  },
-});
+  import ContactListItem from "@/components/contacts/ContactListItem.vue";
+  const props = defineProps({
+    contacts: {
+      type: Array,
+      required: true,
+    },
+  });
 </script>
 
 <template>
   <ul id="contacts-list" class="divide-y divide-gray-200">
-    <ContactsListItem
+    <!-- Example Contact Item -->
+    <ContactListItem
       v-for="contact in contacts"
       :key="contact.id"
       :contact="contact"

@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { reactive, watch, computed, ref } from "vue";
-import { toast } from "vue3-toastify";
 
 export const useContactsStore = defineStore("contacts", () => {
   const contacts = reactive(
@@ -13,20 +12,14 @@ export const useContactsStore = defineStore("contacts", () => {
       },
       {
         id: 2,
-        name: "Jane Smith",
+        name: "Jane Sith",
         email: "janesmith@example.com",
         phone: "+987 654 321",
-      },
-      {
-        id: 3,
-        name: "Alice Johnson",
-        email: "alicej@example.com",
-        phone: "+111 222 333",
       },
     ]
   );
 
-  const searchQuery = reactive({ value: "" });
+  const searchQuery = ref("");
 
   const filteredContacts = computed(() => {
     if (!searchQuery.value) return contacts;
@@ -39,8 +32,10 @@ export const useContactsStore = defineStore("contacts", () => {
     );
   });
 
+  const filteredContactsCount = computed(() => filteredContacts.value.length);
+
   const addContact = (contact) => {
-    contacts.unshift(contact);
+    contacts.push(contact);
     return true;
   };
 
@@ -49,18 +44,15 @@ export const useContactsStore = defineStore("contacts", () => {
       (contact) => contact.id === updatedContact.id
     );
     if (index !== -1) {
-      contacts[index] = updatedContact;
+      contacts[index] = { ...updatedContact };
+      return true;
     }
+    return false; // Retourne false si aucun contact n'a été trouvé
   };
 
   const deleteOneById = (id) => {
     const index = contacts.findIndex((item) => item.id == id);
-    if (index !== -1) {
-      contacts.splice(index, 1);
-      toast.success("Contact supprimé avec succès.");
-    } else {
-      toast.error("Erreur lors de la suppression du contact.");
-    }
+    contacts.splice(index, 1); // Supprime l'élément à l'index trouvé
   };
 
   watch(
@@ -70,13 +62,13 @@ export const useContactsStore = defineStore("contacts", () => {
     },
     { deep: true }
   );
-
   return {
     contacts,
-    searchQuery,
-    filteredContacts,
     addContact,
     updateContact,
     deleteOneById,
+    searchQuery,
+    filteredContacts,
+    filteredContactsCount,
   };
 });

@@ -10,9 +10,14 @@ const router = createRouter({
       component: Dashboard,
     },
     {
-      path: "/add-contact/:id?",
+      path: "/addcontact",
       name: "AddContact",
       component: () => import("../views/AddContact.vue"),
+    },
+    {
+      path: "/editcontact/:id?",
+      name: "EditContact",
+      component: () => import("../views/EditContact.vue"),
     },
   ],
 });

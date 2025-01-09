@@ -1,7 +1,7 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import AppFooter from "@/components/partials/AppFooter.vue";
-import AppHeader from "@/components/partials/AppHeader.vue";
+  import { RouterView } from "vue-router";
+  import AppFooter from "@/components/partials/AppFooter.vue";
+  import AppHeader from "@/components/partials/AppHeader.vue";
 </script>
 
 <template>

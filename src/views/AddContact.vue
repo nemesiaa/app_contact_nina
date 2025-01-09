@@ -1,7 +1,7 @@
 <script setup>
-import AddContactMain from "@/components/contacts/AddContactMain.vue";
+  import AddContact from "@/components/contacts/AddContact.vue";
 </script>
 
 <template>
-  <AddContactMain />
+  <AddContact />
 </template>

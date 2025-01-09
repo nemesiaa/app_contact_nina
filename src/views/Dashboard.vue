@@ -1,9 +1,7 @@
-<!-- src/components/Dashboard.vue -->
-
 <script setup>
-import ContactsListMain from "@/components/contacts/ContactsListMain.vue";
+  import ContactListMain from "../components/contacts/ContactListMain.vue";
 </script>
 
 <template>
-  <ContactsListMain />
+  <ContactListMain />
 </template>
