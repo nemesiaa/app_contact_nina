@@ -2,6 +2,7 @@
 import { reactive, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useContactsStore } from "@/stores/contacts";
+import { toast } from "vue3-toastify";
 
 const newContact = reactive({
   id: null,
@@ -28,19 +29,27 @@ onMounted(() => {
   }
 });
 
-const saveContact = () => {
+const saveContact = async () => {
+  let success = false;
+
   if (newContact.id) {
-    contactsStore.updateContact({ ...newContact });
+    success = contactsStore.updateContact({ ...newContact });
   } else {
     newContact.id = Date.now();
-    contactsStore.addContact({ ...newContact });
+    success = contactsStore.addContact({ ...newContact });
   }
 
   newContact.name = "";
   newContact.email = "";
   newContact.phone = "";
 
-  router.push({ name: "Dashboard" });
+  await router.push({ name: "Dashboard" });
+
+  if (success) {
+    toast.success("Contact enregistré avec succès !");
+  } else {
+    toast.error("Échec de l'enregistrement du contact.");
+  }
 };
 </script>
 
@@ -82,6 +91,8 @@ const saveContact = () => {
               type="tel"
               class="w-full border rounded p-2"
               placeholder="Enter phone number"
+              pattern="^\+?[0-9]+$"
+              title="Le numéro de téléphone peut commencer par + suivi de chiffres uniquement."
               required
             />
           </div>
